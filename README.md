@@ -44,6 +44,7 @@ A estrutura do projeto foi projetada para garantir **escalabilidade**, **testabi
 ## Instalação e Execução
 
 ### Pré-requisitos:
+
 - Ter o Python instalado (>= 3.8)
 
 ### Passos para execução:
@@ -160,6 +161,18 @@ class ContatoController:
     def deletar_contato(self, id):
         self.service.deletar_contato(id)
 ```
+
+---
+
+## Futuros Incrementos
+
+Algumas melhorias futuras que podem ser implementadas para aprimorar a aplicação:
+
+- **Validação de Dados:** Implementação de verificações para garantir a consistência dos dados (e.g., formato de e-mail, tamanho do telefone).
+- **Tratamento de Exceções:** Melhor gerenciamento de erros para lidar com entradas inválidas e falhas inesperadas.
+- **Persistência em Arquivo CSV:** Salvar e carregar contatos de um arquivo CSV para garantir a persistência dos dados.
+- **Testes Automatizados:** Adicionar testes unitários e de integração para garantir a estabilidade da aplicação.
+- **Interface Gráfica:** Desenvolvimento de uma interface amigável utilizando bibliotecas como Tkinter ou PyQt.
 
 ---
 
