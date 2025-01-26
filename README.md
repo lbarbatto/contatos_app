@@ -1,10 +1,10 @@
 # Gerenciador de Contatos
 
-Este projeto implementa um gerenciador de contatos utilizando o paradigma de Programação Orientada a Objetos (POO) em Python. A aplicação permite ao usuário criar, listar, editar e deletar contatos de forma interativa via terminal.
+Este projeto é uma aplicação de gerenciamento de contatos desenvolvida em Python, utilizando os princípios de **Programação Orientada a Objetos (POO)** e uma arquitetura modular baseada no padrão **MVC (Model-View-Controller)**. A aplicação oferece funcionalidades de CRUD (Create, Read, Update, Delete) para gerenciamento de contatos via interface de linha de comando.
 
-## Estrutura do Projeto
+## Arquitetura do Projeto
 
-A aplicação segue uma estrutura organizada em camadas para promover a separação de responsabilidades e facilitar a manutenção.
+A estrutura do projeto foi projetada para garantir **escalabilidade**, **testabilidade** e **manutenibilidade**, separando as responsabilidades em camadas distintas.
 
 ```
 .
@@ -19,38 +19,44 @@ A aplicação segue uma estrutura organizada em camadas para promover a separaç
 └── README.md
 ```
 
-### Diretórios e Arquivos:
+### Camadas do Sistema:
 
-- \`\`: Contém a lógica de controle, recebendo comandos da interface e chamando serviços apropriados.
-  - `contato_controller.py`: Classe que gerencia a comunicação entre a interface do usuário e os serviços.
-- \`\`: Define as classes de domínio e os serviços relacionados aos dados.
-  - `contato.py`: Classe de modelo para representar um contato.
-  - `contato_service.py`: Serviço que contém a lógica de negócio.
-- \`\`: Responsável pela persistência e manipulação dos dados.
-  - `contato_repository.py`: Gerencia o armazenamento dos contatos.
-- \`\`: Ponto de entrada da aplicação.
-- \`\`: Documentação do projeto.
+- **Controller Layer (controller/)**: Camada de controle que atua como intermediária entre a interface de usuário e as regras de negócio.
+  - `contato_controller.py`: Gerencia as requisições do usuário e coordena chamadas aos serviços.
+- **Service Layer (model/)**: Responsável por encapsular a lógica de negócio.
+  - `contato.py`: Definição da entidade Contato.
+  - `contato_service.py`: Regras de negócio e validações aplicadas aos contatos.
+- **Repository Layer (repository/)**: Camada de persistência para abstração do armazenamento dos dados.
+  - `contato_repository.py`: Operações de CRUD para armazenamento em memória.
+- **Interface Layer (main.py)**: Ponto de entrada da aplicação, interagindo com o usuário via CLI.
 
 ---
 
-## Instalação
+## Tecnologias Utilizadas
 
-Para executar esta aplicação, você precisa ter o Python instalado em sua máquina. Siga as instruções abaixo para configurar o ambiente:
+- **Python 3.x**
+- **Paradigma POO (Encapsulamento, Abstração, Herança e Polimorfismo)**
+- **Padrões de Projeto: MVC, Repository Pattern**
+- **Boas práticas de Clean Code e SOLID**
 
-1. Clone este repositório:
+---
 
+## Instalação e Execução
+
+### Pré-requisitos:
+- Ter o Python instalado (>= 3.8)
+
+### Passos para execução:
+
+1. Clone o repositório:
    ```bash
    git clone https://github.com/seu-usuario/gerenciador-contatos.git
    ```
-
 2. Acesse o diretório do projeto:
-
    ```bash
    cd gerenciador-contatos
    ```
-
-3. Execute a aplicação:
-
+3. Execute o programa:
    ```bash
    python main.py
    ```
@@ -59,17 +65,15 @@ Para executar esta aplicação, você precisa ter o Python instalado em sua máq
 
 ## Funcionalidades
 
-A aplicação oferece as seguintes funcionalidades:
-
-1. **Criar Contato**: Adicionar um novo contato fornecendo nome, telefone e email.
-2. **Listar Contatos**: Exibir todos os contatos cadastrados.
-3. **Editar Contato**: Atualizar as informações de um contato existente.
-4. **Deletar Contato**: Remover um contato pelo seu ID.
-5. **Sair da Aplicação**: Encerrar o programa.
+- **Cadastro de Contato:** Inserção de nome, telefone e e-mail.
+- **Listagem de Contatos:** Exibição de todos os contatos cadastrados.
+- **Edição de Contato:** Atualização dos dados existentes de um contato.
+- **Exclusão de Contato:** Remoção de um contato a partir do seu identificador único.
+- **Encerramento Seguro da Aplicação.**
 
 ---
 
-## Uso
+## Exemplo de Uso
 
 Ao executar o programa, será exibido o seguinte menu interativo:
 
@@ -86,9 +90,9 @@ Digite uma LETRA válida ('C','R','U','D','X'):
 
 ---
 
-## Estrutura de Classes
+## Estrutura de Código
 
-### Classe `Contato`
+### Modelo de Contato (Entidade)
 
 ```python
 class Contato:
@@ -102,9 +106,12 @@ class Contato:
         return f"ID: {self.id} | Nome: {self.name} | Telefone: {self.phone} | Email: {self.email}"
 ```
 
-### Classe `ContatoService`
+### Serviço de Contatos
 
 ```python
+from model.contato import Contato
+from repository.contato_repository import ContatoRepository
+
 class ContatoService:
     def __init__(self):
         self.repository = ContatoRepository()
@@ -114,9 +121,11 @@ class ContatoService:
         self.repository.criar_contato(contato)
 ```
 
-### Classe `ContatoRepository`
+### Repositório de Contatos
 
 ```python
+from model.contato import Contato
+
 class ContatoRepository:
     contatos_dictionary = {}
 
@@ -127,14 +136,39 @@ class ContatoRepository:
         print(f"Novo Contato {contato.name} criado com sucesso.")
 ```
 
+### Controller de Contatos
+
+```python
+from model.contato_service import ContatoService
+
+class ContatoController:
+    def __init__(self):
+        self.service = ContatoService()
+
+    def criar_contato(self, name, phone, email):
+        self.service.criar_contato(name, phone, email)
+
+    def listar_contatos(self):
+        self.service.listar_contatos()
+
+    def listar_contato_por_id(self, id):
+        return self.service.listar_contato_por_id(id)
+
+    def editar_contato(self, id, name, phone, email):
+        self.service.editar_contato(id, name, phone, email)
+
+    def deletar_contato(self, id):
+        self.service.deletar_contato(id)
+```
+
 ---
 
 ## Contribuição
 
-Se desejar contribuir para o projeto:
+Para contribuir com o projeto:
 
 1. Faça um fork do repositório.
-2. Crie uma nova branch com a sua feature:
+2. Crie uma branch com a sua feature:
    ```bash
    git checkout -b minha-feature
    ```
@@ -152,7 +186,7 @@ Se desejar contribuir para o projeto:
 
 ## Licença
 
-Este projeto é licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+Este projeto é distribuído sob a licença MIT. Consulte o arquivo [LICENSE](LICENSE) para mais informações.
 
 ---
 
