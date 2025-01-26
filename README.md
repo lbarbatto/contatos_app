@@ -2,6 +2,27 @@
 
 Este projeto é uma aplicação de gerenciamento de contatos desenvolvida em Python, utilizando os princípios de **Programação Orientada a Objetos (POO)** e uma arquitetura modular baseada no padrão **MVC (Model-View-Controller)**. A aplicação oferece funcionalidades de CRUD (Create, Read, Update, Delete) para gerenciamento de contatos via interface de linha de comando.
 
+## Índice
+
+- [Arquitetura do Projeto](#arquitetura-do-projeto)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Instalação e Execução](#instalação-e-execução)
+- [Funcionalidades](#funcionalidades)
+- [Exemplo de Uso](#exemplo-de-uso)
+- [Estrutura de Código](#estrutura-de-código)
+  - [Modelo de Contato (Entidade)](#modelo-de-contato-entidade)
+  - [Serviço de Contatos](#serviço-de-contatos)
+  - [Repositório de Contatos](#repositório-de-contatos)
+  - [Controller de Contatos](#controller-de-contatos)
+- [Futuros Incrementos](#futuros-incrementos)
+- [Contribuição](#contribuição)
+- [Licença](#licença)
+- [Autor](#autor)
+- [Diagrama de Classes](#diagrama-de-classes)
+
+---
+
+
 ## Arquitetura do Projeto
 
 A estrutura do projeto foi projetada para garantir **escalabilidade**, **testabilidade** e **manutenibilidade**, separando as responsabilidades em camadas distintas.
